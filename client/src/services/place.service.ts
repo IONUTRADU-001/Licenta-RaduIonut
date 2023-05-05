@@ -28,7 +28,7 @@ export class PlaceService extends BaseService {
         return this.doCall(() => axios.post<any[]>(`${this._api}/places`, placeData));
     }
 
-    public async updatePlace(id: string, placeData: any): Promise<any> {
-        return this.doCall(() => axios.put<any[]>(`${this._api}/places`, { id, ...placeData }));
+    public async updatePlace(id: string, placeData: any, token: any): Promise<any> {
+        return this.doCall(() => axios.put<any[]>(`${this._api}/places`, { id, ...placeData, token }));
     }
 }

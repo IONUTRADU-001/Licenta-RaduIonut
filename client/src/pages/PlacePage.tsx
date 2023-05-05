@@ -10,7 +10,7 @@ import { PlaceService } from "../services/place.service";
 
 export default function PlacePage() {
   const { id } = useParams();
-  const [place, setPlace] = useState<any>();
+  const [place, setPlace] = useState<any>([]);
   const placeService = useService(PlaceService);
 
   useEffect(() => {
@@ -18,7 +18,8 @@ export default function PlacePage() {
       return;
     }
     placeService.getPlaceById(id).then(response => {
-      setPlace(response.data);
+      setPlace(response);
+      console.log(place,'place')
     });
   }, [id]);
 

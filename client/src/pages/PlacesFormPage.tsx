@@ -26,30 +26,30 @@ export default function PlacesFormPage() {
       return;
     }
     placeService.getPlaceById(id).then(response => {
-      const { data } = response;
-      setTitle(data.title);
-      setAddress(data.address);
-      setAddedPhotos(data.photos);
-      setDescription(data.description);
-      setPerks(data.perks);
-      setExtraInfo(data.extraInfo);
-      setCheckIn(data.checkIn);
-      setCheckOut(data.checkOut);
-      setMaxGuests(data.maxGuests);
-      setPrice(data.price);
+      setTitle(response.title);
+      setAddress(response.address);
+      setAddedPhotos(response.photos);
+      setDescription(response.description);
+      setPerks(response.perks);
+      setExtraInfo(response.extraInfo);
+      setCheckIn(response.checkIn);
+      setCheckOut(response.checkOut);
+      setMaxGuests(response.maxGuests);
+      setPrice(response.price);
     });
-  }, [id]);
-  function inputHeader(text: string) {
+  }, []);
+
+  const inputHeader = (text: string) => {
     return (
       <h2 className="text-2xl mt-4">{text}</h2>
     );
   }
-  function inputDescription(text: string) {
+  const inputDescription = (text: string)=> {
     return (
       <p className="text-gray-500 text-sm">{text}</p>
     );
   }
-  function preInput(header: string, description: string) {
+  const preInput = (header: string, description: string) => {
     return (
       <>
         {inputHeader(header)}
@@ -58,7 +58,8 @@ export default function PlacesFormPage() {
     );
   }
 
-  async function savePlace(ev: any) {
+  const savePlace= async (ev: any) =>{
+    let token = localStorage.getItem('token')
     ev.preventDefault();
     const placeData = {
       title, address, addedPhotos,
@@ -67,14 +68,9 @@ export default function PlacesFormPage() {
     };
     if (id) {
       // update
-      await placeService.updatePlace(id, placeData);
-      setRedirect(true);
-    } else {
-      // new place
-      await placeService.createPlace(placeData);
+      await placeService.updatePlace(id, placeData, token);
       setRedirect(true);
     }
-
   }
 
   if (redirect) {
