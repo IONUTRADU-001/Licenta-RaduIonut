@@ -19,26 +19,28 @@ export default function PlacesFormPage() {
   const [maxGuests, setMaxGuests] = useState(1);
   const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
+  const [photo, setPhoto] = useState('');
   const placeService = useService(PlaceService);
   
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-    placeService.getPlaceById(id).then(response => {
-      const { data } = response;
-      setTitle(data.title);
-      setAddress(data.address);
-      setAddedPhotos(data.photos);
-      setDescription(data.description);
-      setPerks(data.perks);
-      setExtraInfo(data.extraInfo);
-      setCheckIn(data.checkIn);
-      setCheckOut(data.checkOut);
-      setMaxGuests(data.maxGuests);
-      setPrice(data.price);
-    });
-  }, [id]);
+  // useEffect(() => {
+  //   if (!id) {
+  //     return;
+  //   }
+  //   placeService.getPlaceById(id).then(response => {
+  //     const { data } = response;
+  //     setTitle(data.title);
+  //     setAddress(data.address);
+  //     setAddedPhotos(data.photos);
+  //     setDescription(data.description);
+  //     setPerks(data.perks);
+  //     setExtraInfo(data.extraInfo);
+  //     setCheckIn(data.checkIn);
+  //     setCheckOut(data.checkOut);
+  //     setMaxGuests(data.maxGuests);
+  //     setPrice(data.price);
+  //     setPhoto(data.photo)
+  //   });
+  // }, [id]);
   const inputHeader = (text: string) => {
     return (
       <h2 className="text-2xl mt-4">{text}</h2>
@@ -63,7 +65,7 @@ export default function PlacesFormPage() {
     ev.preventDefault();
     let token = localStorage.getItem('token')
     const placeData = {
-      title, address, addedPhotos,
+      title, address, addedPhotos ,photo,
       description, perks, extraInfo,
       checkIn, checkOut, maxGuests, price,token
     };
@@ -85,7 +87,7 @@ export default function PlacesFormPage() {
         {preInput('Address', 'Address to this place')}
         <input type="text" value={address} onChange={ev => setAddress(ev.target.value)} placeholder="address" />
         {preInput('Photos', 'more = better')}
-        <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
+        <input type="text" placeholder="Please provide full url for image" value={photo} onChange={ev => setPhoto(ev.target.value)} />
         {preInput('Description', 'description of the place')}
         <textarea value={description} onChange={ev => setDescription(ev.target.value)} />
         {preInput('Perks', 'select all the perks of your place')}

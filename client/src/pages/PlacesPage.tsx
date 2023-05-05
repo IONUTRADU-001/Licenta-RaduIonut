@@ -31,13 +31,16 @@ export default function PlacesPage() {
       </div>
       <div className="mt-4">
         {places.length > 0 && places.map((place, key) => (
-          <Link to={'/account/places/' + place._id} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl" key={key}>
-            <div className="flex w-32 h-32 bg-gray-300 grow shrink-0">
-              <PlaceImg place={place} />
+          <Link to={'/account/places/' + place._id} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl mb-5" key={key}>
+            <div className="flex h-64 bg-gray-300 shrink-0">
+              <img src={place.photo} alt="photo" />
             </div>
             <div className="grow-0 shrink">
               <h2 className="text-xl">{place.title}</h2>
               <p className="text-sm mt-2">{place.description}</p>
+              <p className="text-sm mt-2">Price: {place.price}</p>
+              <p className="text-sm mt-2">Adress: {place.address}</p>
+              <p className="text-sm mt-2">Guests: {place.maxGuests}</p>
             </div>
           </Link>
         ))}

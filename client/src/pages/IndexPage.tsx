@@ -18,12 +18,8 @@ export default function IndexPage() {
   return (
     <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
       {places.length > 0 && places.map((place,key) => (
-        <Link to={'/place/' + place._id} key={key}>
-          <div className="bg-gray-500 mb-2 rounded-2xl flex">
-            {place.photos?.[0] && (
-              <Image className="rounded-2xl object-cover aspect-square" src={place.photos?.[0]} alt="" />
-            )}
-          </div>
+        <Link to={'/place/' + place._id} key={key} className="bg-gray-100 p-4 rounded-2xl mb-5 shadow-lg">
+          <img src={place.photo} alt="photo" />
           <h2 className="font-bold">{place.address}</h2>
           <h3 className="text-sm text-gray-500">{place.title}</h3>
           <div className="mt-1">

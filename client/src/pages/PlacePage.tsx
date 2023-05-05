@@ -19,7 +19,6 @@ export default function PlacePage() {
     }
     placeService.getPlaceById(id).then(response => {
       setPlace(response);
-      console.log(place,'place')
     });
   }, [id]);
 

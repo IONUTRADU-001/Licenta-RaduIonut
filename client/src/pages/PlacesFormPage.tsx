@@ -19,6 +19,7 @@ export default function PlacesFormPage() {
   const [maxGuests, setMaxGuests] = useState(1);
   const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState(false);
+  const [photo, setPhoto] = useState('')
   const placeService = useService(PlaceService);
   
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function PlacesFormPage() {
       setCheckOut(response.checkOut);
       setMaxGuests(response.maxGuests);
       setPrice(response.price);
+      setPhoto(response.photo)
     });
   }, []);
 
@@ -62,7 +64,7 @@ export default function PlacesFormPage() {
     let token = localStorage.getItem('token')
     ev.preventDefault();
     const placeData = {
-      title, address, addedPhotos,
+      title, address, addedPhotos,photo,
       description, perks, extraInfo,
       checkIn, checkOut, maxGuests, price,
     };
@@ -86,7 +88,7 @@ export default function PlacesFormPage() {
         {preInput('Address', 'Address to this place')}
         <input type="text" value={address} onChange={ev => setAddress(ev.target.value)} placeholder="address" />
         {preInput('Photos', 'more = better')}
-        <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
+        <input type="text" placeholder="Please provide full url for image" value={photo} onChange={ev => setPhoto(ev.target.value)} />
         {preInput('Description', 'description of the place')}
         <textarea value={description} onChange={ev => setDescription(ev.target.value)} />
         {preInput('Perks', 'select all the perks of your place')}
